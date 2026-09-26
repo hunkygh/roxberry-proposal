@@ -11,10 +11,8 @@ interface StoredSelection {
   timestamp: string
 }
 
-/* ── tiny SVG icons ── */
-
 const CheckIcon = () => (
-  <svg className="w-4 h-4 text-stone-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+  <svg className="w-4 h-4 text-gp-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
   </svg>
 )
@@ -27,13 +25,11 @@ const StarIcon = () => (
 
 const RadioDot = ({ active }: { active: boolean }) => (
   <div className={`w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center transition-colors ${
-    active ? 'border-berry-500' : 'border-stone-300'
+    active ? 'border-gp-500' : 'border-stone-300'
   }`}>
-    {active && <div className="w-2 h-2 rounded-full bg-berry-500" />}
+    {active && <div className="w-2 h-2 rounded-full bg-gp-500" />}
   </div>
 )
-
-/* ── main component ── */
 
 export default function Proposal() {
   const [plan, setPlan] = useState<PlanSelection>(null)
@@ -84,7 +80,6 @@ export default function Proposal() {
   const costPlusDimmed = confirmed && plan !== 'cost-plus'
   const frePosDimmed = confirmed && plan !== 'free-pos'
 
-  /* ── plan labels for modal ── */
   const planLabel = plan === 'cost-plus'
     ? 'Cost + Interchange (Flagship Match)'
     : plan === 'free-pos'
@@ -101,29 +96,24 @@ export default function Proposal() {
     <main className="min-h-screen px-4 py-12 sm:py-20">
       <div className="max-w-5xl mx-auto">
 
-        {/* ── HERO ── */}
         <header className="text-center mb-16 animate-fade-in">
-          <p className="text-xs font-medium tracking-[0.2em] uppercase text-stone-400 mb-4">
-            Partnership Proposal
-          </p>
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-3">
-            Roxberry Juice Co.
+            Proposal &ndash; Roxberry Juice
           </h1>
           <p className="text-stone-400 text-sm">
-            23 Locations&ensp;\u00b7&ensp;~$18M Annual Revenue&ensp;\u00b7&ensp;Prepared by Heartland
+            23 Locations &middot; ~$18M Annual Revenue &middot; Prepared by Global Payments
           </p>
         </header>
 
-        {/* ── CONFIRMED BANNER ── */}
         {confirmed && (
           <div className="mb-10 text-center animate-slide-down">
-            <div className="inline-flex items-center gap-2 bg-stone-100 border border-stone-200 rounded-full px-5 py-2.5 text-sm text-stone-600">
-              <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+            <div className="inline-flex items-center gap-2 bg-gp-50 border border-gp-200 rounded-full px-5 py-2.5 text-sm text-gp-600">
+              <svg className="w-4 h-4 text-gp-500" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>
                 Selection confirmed{plan === 'free-pos' ? `: ${cdLabel}` : `: ${planLabel}`}.
-                Your Heartland team will be in touch to finalize next steps.
+                Your Global Payments team will be in touch to finalize next steps.
               </span>
             </div>
             <button
@@ -135,16 +125,14 @@ export default function Proposal() {
           </div>
         )}
 
-        {/* ── CARDS ── */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">
 
-          {/* CARD 1 : Cost + Interchange */}
           <div
             className={`relative rounded-2xl border bg-white p-8 transition-all duration-500 animate-fade-in stagger-1 ${
               costPlusDimmed
                 ? 'opacity-40 scale-[0.98] pointer-events-none'
                 : confirmed && plan === 'cost-plus'
-                ? 'border-green-300 shadow-sm ring-1 ring-green-100'
+                ? 'border-gp-300 shadow-sm ring-1 ring-gp-100'
                 : 'border-stone-200 hover:border-stone-300 hover:shadow-sm'
             }`}
           >
@@ -197,27 +185,25 @@ export default function Proposal() {
               disabled={confirmed}
               className={`w-full py-3 px-6 rounded-xl text-sm font-medium transition-all ${
                 confirmed && plan === 'cost-plus'
-                  ? 'bg-green-50 text-green-700 border border-green-200 cursor-default'
-                  : 'bg-stone-900 text-white hover:bg-stone-800 active:scale-[0.99]'
+                  ? 'bg-gp-50 text-gp-600 border border-gp-200 cursor-default'
+                  : 'bg-gp-500 text-white hover:bg-gp-600 active:scale-[0.99]'
               }`}
             >
               {confirmed && plan === 'cost-plus' ? '\u2713 Selected' : 'Select This Plan'}
             </button>
           </div>
 
-          {/* CARD 2 : Free POS */}
           <div
             className={`relative rounded-2xl border bg-white p-8 transition-all duration-500 animate-fade-in stagger-2 ${
               frePosDimmed
                 ? 'opacity-40 scale-[0.98] pointer-events-none'
                 : confirmed && plan === 'free-pos'
-                ? 'border-green-300 shadow-sm ring-1 ring-green-100'
-                : 'border-berry-200 hover:border-berry-300 hover:shadow-sm'
+                ? 'border-gp-300 shadow-sm ring-1 ring-gp-100'
+                : 'border-gp-200 hover:border-gp-300 hover:shadow-sm'
             }`}
           >
-            {/* Recommended badge */}
             <div className="absolute -top-3 left-8">
-              <span className="inline-flex items-center gap-1.5 bg-berry-500 text-white text-[10px] font-semibold tracking-wider uppercase px-3 py-1 rounded-full">
+              <span className="inline-flex items-center gap-1.5 bg-gp-500 text-white text-[10px] font-semibold tracking-wider uppercase px-3 py-1 rounded-full">
                 <StarIcon />
                 Recommended
               </span>
@@ -243,7 +229,7 @@ export default function Proposal() {
                     ['POS Support', 'Specialist team'],
                     ['Installation', 'All locations'],
                   ].map(([label, sub]) => (
-                    <div key={label} className="bg-stone-50 rounded-lg p-3">
+                    <div key={label} className="bg-gp-50 rounded-lg p-3">
                       <p className="text-lg font-semibold text-stone-900">$0</p>
                       <p className="text-xs text-stone-500">{label}</p>
                     </div>
@@ -257,13 +243,12 @@ export default function Proposal() {
                   3.5% flat rate, structured however works best for Roxberry. Choose how to allocate it:
                 </p>
                 <div className="space-y-2">
-                  {/* Sub-option: Menu absorption */}
                   <button
                     onClick={() => !confirmed && setCdStructure('menu-absorb')}
                     disabled={confirmed}
                     className={`w-full text-left flex items-start gap-3 p-3 rounded-xl border transition-all ${
                       cdStructure === 'menu-absorb'
-                        ? 'border-berry-200 bg-berry-50'
+                        ? 'border-gp-200 bg-gp-50'
                         : 'border-stone-100 hover:border-stone-200'
                     }`}
                   >
@@ -276,13 +261,12 @@ export default function Proposal() {
                     </div>
                   </button>
 
-                  {/* Sub-option: Split CD (recommended) */}
                   <button
                     onClick={() => !confirmed && setCdStructure('split-cd')}
                     disabled={confirmed}
                     className={`w-full text-left flex items-start gap-3 p-3 rounded-xl border transition-all ${
                       cdStructure === 'split-cd'
-                        ? 'border-berry-200 bg-berry-50'
+                        ? 'border-gp-200 bg-gp-50'
                         : 'border-stone-100 hover:border-stone-200'
                     }`}
                   >
@@ -290,7 +274,7 @@ export default function Proposal() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-medium text-stone-700">Split cash discount</p>
-                        <span className="text-[9px] font-semibold tracking-wider uppercase text-berry-500 bg-berry-50 border border-berry-100 px-1.5 py-0.5 rounded">
+                        <span className="text-[9px] font-semibold tracking-wider uppercase text-gp-500 bg-gp-50 border border-gp-100 px-1.5 py-0.5 rounded">
                           Best value
                         </span>
                       </div>
@@ -300,13 +284,12 @@ export default function Proposal() {
                     </div>
                   </button>
 
-                  {/* Sub-option: Full flat rate */}
                   <button
                     onClick={() => !confirmed && setCdStructure('flat-rate')}
                     disabled={confirmed}
                     className={`w-full text-left flex items-start gap-3 p-3 rounded-xl border transition-all ${
                       cdStructure === 'flat-rate'
-                        ? 'border-berry-200 bg-berry-50'
+                        ? 'border-gp-200 bg-gp-50'
                         : 'border-stone-100 hover:border-stone-200'
                     }`}
                   >
@@ -327,8 +310,8 @@ export default function Proposal() {
               disabled={confirmed}
               className={`w-full py-3 px-6 rounded-xl text-sm font-medium transition-all ${
                 confirmed && plan === 'free-pos'
-                  ? 'bg-green-50 text-green-700 border border-green-200 cursor-default'
-                  : 'bg-stone-900 text-white hover:bg-stone-800 active:scale-[0.99]'
+                  ? 'bg-gp-50 text-gp-600 border border-gp-200 cursor-default'
+                  : 'bg-gp-500 text-white hover:bg-gp-600 active:scale-[0.99]'
               }`}
             >
               {confirmed && plan === 'free-pos' ? '\u2713 Selected' : 'Select This Plan'}
@@ -336,12 +319,10 @@ export default function Proposal() {
           </div>
         </div>
 
-        {/* ── PERIPHERALS ── */}
         <div className="max-w-2xl mx-auto space-y-6 animate-fade-in stagger-3">
-          {/* Referral */}
           <div className="flex items-start gap-4 bg-white rounded-2xl border border-stone-200 p-6">
-            <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5 text-stone-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <div className="w-10 h-10 rounded-full bg-gp-50 flex items-center justify-center shrink-0">
+              <svg className="w-5 h-5 text-gp-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
               </svg>
             </div>
@@ -353,10 +334,9 @@ export default function Proposal() {
             </div>
           </div>
 
-          {/* Note about equipment */}
           <div className="flex items-start gap-4 bg-white rounded-2xl border border-stone-200 p-6">
-            <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5 text-stone-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <div className="w-10 h-10 rounded-full bg-gp-50 flex items-center justify-center shrink-0">
+              <svg className="w-5 h-5 text-gp-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
               </svg>
             </div>
@@ -369,15 +349,13 @@ export default function Proposal() {
           </div>
         </div>
 
-        {/* ── FOOTER ── */}
         <footer className="text-center mt-20 pb-8 animate-fade-in stagger-4">
           <p className="text-xs text-stone-300">
-            Prepared for Roxberry Juice Co.&ensp;\u00b7&ensp;Heartland Payment Systems&ensp;\u00b7&ensp;{new Date().getFullYear()}
+            Prepared for Roxberry Juice &middot; Global Payments &middot; {new Date().getFullYear()}
           </p>
         </footer>
       </div>
 
-      {/* ── CONFIRMATION MODAL ── */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div className="absolute inset-0 bg-stone-900/30 backdrop-blur-sm" onClick={() => { setShowModal(false); setPlan(null) }} />
@@ -393,7 +371,7 @@ export default function Proposal() {
             )}
             {plan === 'cost-plus' && <div className="mb-6" />}
             <p className="text-xs text-stone-400 mb-6">
-              This registers your preferred option. Your Heartland rep will follow up to discuss details and next steps.
+              This registers your preferred option. Your rep will follow up to discuss details and next steps.
             </p>
             <div className="flex gap-3">
               <button
@@ -404,7 +382,7 @@ export default function Proposal() {
               </button>
               <button
                 onClick={handleConfirm}
-                className="flex-1 py-2.5 px-4 rounded-xl text-sm font-medium bg-stone-900 text-white hover:bg-stone-800 transition-colors"
+                className="flex-1 py-2.5 px-4 rounded-xl text-sm font-medium bg-gp-500 text-white hover:bg-gp-600 transition-colors"
               >
                 Confirm selection
               </button>
