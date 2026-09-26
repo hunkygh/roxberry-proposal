@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 
 type PlanSelection = 'cost-plus' | 'free-pos' | null
-type CdStructure = 'menu-absorb' | 'split-cd' | 'flat-rate'
+type CdStructure = 'full-cd' | 'split-cd' | 'flat-rate'
 
 interface StoredSelection {
   plan: PlanSelection
@@ -86,17 +86,17 @@ export default function Proposal() {
     ? 'Free POS Program'
     : ''
 
-  const cdLabel = cdStructure === 'menu-absorb'
-    ? 'Menu Price Absorption (0% effective fee)'
+  const cdLabel = cdStructure === 'full-cd'
+    ? 'Full Cash Discount (0% effective fee)'
     : cdStructure === 'split-cd'
     ? 'Split Cash Discount (1.75% menu / 1.75% flat rate)'
-    : 'Full Flat Rate (3.5%)'
+    : 'Flat Rate (3.5%)'
 
   return (
     <main className="min-h-screen px-4 py-12 sm:py-20">
       <div className="max-w-5xl mx-auto">
 
-        <header className="text-center mb-12 animate-fade-in">
+        <header className="text-center mb-10 animate-fade-in">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-3">
             Proposal &ndash; Roxberry Juice
           </h1>
@@ -105,9 +105,9 @@ export default function Proposal() {
           </p>
         </header>
 
-        <div className="max-w-2xl mx-auto mb-14 animate-fade-in text-center">
+        <div className="max-w-2xl mx-auto mb-12 animate-fade-in text-center">
           <p className="text-sm text-stone-500 leading-relaxed">
-            We&rsquo;ve structured two paths based on our conversations and what we understand about where Roxberry is today. Both deliver the full Genius POS suite (countertop terminals, handhelds, kiosks for locations that want them, and the reporting and integration improvements we discussed). The difference is in how we get there financially. Select whichever option you&rsquo;d like to move forward with, and we&rsquo;ll be in touch to finalize the details.
+            Two paths to the full Genius POS suite. Same equipment, same integrations, same support. The difference is how the economics work. Select whichever fits best.
           </p>
         </div>
 
@@ -143,52 +143,56 @@ export default function Proposal() {
             }`}
           >
             <div className="mb-5">
-              <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-stone-400">
-                Option A
-              </span>
-              <h2 className="text-xl font-semibold text-stone-900 mt-1">
-                Cost + Interchange
-              </h2>
+              <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-stone-400">Option A</span>
+              <h2 className="text-xl font-semibold text-stone-900 mt-1">Cost + Interchange</h2>
               <p className="text-sm text-stone-400 mt-1">Flagship Partnership Match</p>
             </div>
 
-            <p className="text-sm text-stone-500 leading-relaxed mb-6">
-              This path is designed for operators who prefer to keep their processing model straightforward: you pay the actual cost of interchange plus a small margin, and your equipment and software run on a flat monthly rate. No surcharging, no menu restructuring, and no changes to how your customers experience pricing at the register.
+            <p className="text-sm text-stone-500 leading-relaxed mb-5">
+              Traditional processing model. No menu price changes, no surcharging. You pay actual interchange cost plus a small margin, with equipment and software on a flat monthly rate.
             </p>
 
-            <div className="space-y-5 mb-6">
+            <div className="space-y-4 mb-6">
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-2">Processing</p>
-                <p className="text-sm text-stone-600 leading-relaxed">
-                  Your processing rates are matched to where you are today. As both the processor and the technology provider, we have the flexibility to set these directly rather than going through a third party, which is how we&rsquo;re able to meet your current pricing without compromise.
-                </p>
+                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-1.5">Processing</p>
+                <ul className="space-y-1.5">
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600">
+                    <CheckIcon /><span>Rates matched to your current pricing</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600">
+                    <CheckIcon /><span>We own the processing side, so we set rates directly</span>
+                  </li>
+                </ul>
               </div>
 
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-2">Equipment &amp; Software</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-1.5">Equipment &amp; Software</p>
                 <p className="text-2xl font-semibold text-stone-900">$125<span className="text-sm font-normal text-stone-400">/mo per location</span></p>
-                <p className="text-sm text-stone-500 leading-relaxed mt-2">
-                  This is a specially approved rate. We&rsquo;re bringing this number down significantly because we see Roxberry as a flagship partnership for Genius in the juice and QSR space. The standard rate is considerably higher; this pricing reflects the strategic value of the relationship, not just the transaction volume.
-                </p>
+                <p className="text-xs text-stone-400 mt-1">Special approval pricing. Reflects the strategic value of this partnership.</p>
               </div>
 
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-3">Included at every location</p>
-                <ul className="space-y-2.5">
-                  {['Countertop terminal', 'Handheld device(s)', 'Kiosk for locations that want one', 'Enhanced reporting & integrations'].map((item) => (
+                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-1.5">Included per location</p>
+                <ul className="space-y-1.5">
+                  {['Countertop terminal', 'Handheld device(s)', 'Kiosk (where desired)', 'Enhanced reporting & integrations'].map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-sm text-stone-600">
-                      <CheckIcon />
-                      <span>{item}</span>
+                      <CheckIcon /><span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div className="pt-3 border-t border-stone-100">
-                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-2">Installation</p>
-                <p className="text-sm text-stone-500 leading-relaxed">
-                  Roughly $1,000 per location, handled end-to-end by our POS Specialists. This covers on-site setup, configuration, and training. The rate is aggressively prorated for this partnership; it&rsquo;s a cost we can&rsquo;t fully absorb on cost-plus, but we&rsquo;ve brought it as low as we can.
-                </p>
+                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-1.5">Installation</p>
+                <ul className="space-y-1.5">
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600">
+                    <CheckIcon /><span>~$1,000/location, handled by POS Specialists</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600">
+                    <CheckIcon /><span>Covers on-site setup, configuration, training</span>
+                  </li>
+                  <li className="text-xs text-stone-400 ml-6 mt-1">Aggressively prorated. Cannot fully absorb on cost-plus model.</li>
+                </ul>
               </div>
             </div>
 
@@ -222,61 +226,58 @@ export default function Proposal() {
             </div>
 
             <div className="mb-5 mt-2">
-              <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-stone-400">
-                Option B
-              </span>
-              <h2 className="text-xl font-semibold text-stone-900 mt-1">
-                Free POS Program
-              </h2>
-              <p className="text-sm text-stone-400 mt-1">Revenue-qualified, zero hardware cost</p>
+              <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-stone-400">Option B</span>
+              <h2 className="text-xl font-semibold text-stone-900 mt-1">Free POS Program</h2>
+              <p className="text-sm text-stone-400 mt-1">Cash discount model, zero hardware cost</p>
             </div>
 
-            <p className="text-sm text-stone-500 leading-relaxed mb-6">
-              At ~$18M in annual revenue, Roxberry qualifies for our Free POS Program outright. The concept is simple: instead of paying separately for equipment, software, installation, and support, everything rolls into a single flat processing rate of 3.5%. There are no separate line items and nothing to finance. The equipment is yours, fully supported, at no additional cost. The tradeoff is in how you structure that 3.5% rate, and you have options.
+            <p className="text-sm text-stone-500 leading-relaxed mb-5">
+              Roxberry qualifies at ~$18M annual revenue. Cash discounting at 3.5% funds the entire POS deployment: equipment, software, install, and ongoing support are all covered. You choose how much of that 3.5% to absorb into menu prices vs. retain as a flat processing fee.
             </p>
 
-            <div className="space-y-5 mb-6">
+            <div className="space-y-4 mb-6">
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-3">Everything included, free</p>
+                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-2">What&rsquo;s covered</p>
                 <div className="grid grid-cols-2 gap-2">
-                  {[
-                    ['Equipment', 'All hardware'],
-                    ['Software', 'Full suite'],
-                    ['POS Support', 'Specialist team'],
-                    ['Installation', 'All locations'],
-                  ].map(([label]) => (
-                    <div key={label} className="bg-gp-50 rounded-lg p-3">
-                      <p className="text-lg font-semibold text-stone-900">$0</p>
-                      <p className="text-xs text-stone-500">{label}</p>
+                  {['Equipment', 'Software', 'Installation', 'POS Support'].map((label) => (
+                    <div key={label} className="bg-gp-50 rounded-lg p-2.5">
+                      <p className="text-base font-semibold text-stone-900">$0</p>
+                      <p className="text-[11px] text-stone-500">{label}</p>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-stone-400 mt-3 leading-relaxed">
-                  This includes countertop terminals, handhelds, kiosks where desired, full software licensing, on-site installation by POS Specialists, and ongoing support. No install fees, no monthly equipment charges, no separate software subscriptions.
-                </p>
+                <ul className="mt-3 space-y-1.5">
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600"><CheckIcon /><span>Countertop + handhelds + kiosks</span></li>
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600"><CheckIcon /><span>Full Genius software suite + integrations</span></li>
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600"><CheckIcon /><span>On-site install &amp; training by POS Specialists</span></li>
+                  <li className="flex items-start gap-2.5 text-sm text-stone-600"><CheckIcon /><span>Ongoing tech support included</span></li>
+                </ul>
               </div>
 
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-2">How the 3.5% works</p>
-                <p className="text-sm text-stone-500 leading-relaxed mb-4">
-                  The flat 3.5% rate is the single cost that covers everything. How that rate flows through your business is up to you. There are three ways to structure it, each with different implications for your menu pricing and your effective processing cost. Choose the structure that fits best:
+              <div className="pt-3 border-t border-stone-100">
+                <p className="text-xs font-medium uppercase tracking-wider text-stone-400 mb-2">Cash discount structure</p>
+                <p className="text-sm text-stone-500 mb-4">
+                  Choose how the 3.5% flows. More into menu prices = lower effective processing fee.
                 </p>
                 <div className="space-y-2">
+
                   <button
-                    onClick={() => !confirmed && setCdStructure('menu-absorb')}
+                    onClick={() => !confirmed && setCdStructure('full-cd')}
                     disabled={confirmed}
                     className={`w-full text-left flex items-start gap-3 p-3.5 rounded-xl border transition-all ${
-                      cdStructure === 'menu-absorb'
+                      cdStructure === 'full-cd'
                         ? 'border-gp-200 bg-gp-50'
                         : 'border-stone-100 hover:border-stone-200'
                     }`}
                   >
-                    <RadioDot active={cdStructure === 'menu-absorb'} />
+                    <RadioDot active={cdStructure === 'full-cd'} />
                     <div>
-                      <p className="text-sm font-medium text-stone-700">Menu price absorption</p>
-                      <p className="text-xs text-stone-400 mt-1 leading-relaxed">
-                        The full 3.5% is built into your menu prices, so your effective processing fee becomes 0%. Customers see slightly higher menu prices (roughly 3.5% across the board) but never encounter a surcharge or line-item fee. Clean from an operational standpoint, though it does mean a more noticeable menu price adjustment.
-                      </p>
+                      <p className="text-sm font-medium text-stone-700">Full cash discount</p>
+                      <ul className="mt-1.5 space-y-1 text-xs text-stone-400">
+                        <li>&bull; 3.5% absorbed into menu prices</li>
+                        <li>&bull; Effective processing fee: <span className="font-semibold text-stone-600">0%</span></li>
+                        <li>&bull; $7.00 smoothie &rarr; $7.25 &ensp;|&ensp; $9.00 bowl &rarr; $9.32</li>
+                      </ul>
                     </div>
                   </button>
 
@@ -297,9 +298,12 @@ export default function Proposal() {
                           Best value
                         </span>
                       </div>
-                      <p className="text-xs text-stone-400 mt-1 leading-relaxed">
-                        Half the rate (1.75%) is absorbed into menu prices, and the remaining 1.75% is your effective flat-rate processing fee. This is the balance point: the menu price increase is modest enough that most customers won&rsquo;t notice, your effective processing cost drops well below 2%, and you stay fully qualified for the Free POS Program. It&rsquo;s the approach we&rsquo;d recommend.
-                      </p>
+                      <ul className="mt-1.5 space-y-1 text-xs text-stone-400">
+                        <li>&bull; 1.75% absorbed into menu prices, 1.75% flat rate</li>
+                        <li>&bull; Effective processing fee: <span className="font-semibold text-stone-600">1.75%</span></li>
+                        <li>&bull; $7.00 smoothie &rarr; $7.12 &ensp;|&ensp; $9.00 bowl &rarr; $9.16</li>
+                        <li>&bull; Minimal menu impact, stays on Free POS qualification</li>
+                      </ul>
                     </div>
                   </button>
 
@@ -314,10 +318,13 @@ export default function Proposal() {
                   >
                     <RadioDot active={cdStructure === 'flat-rate'} />
                     <div>
-                      <p className="text-sm font-medium text-stone-700">Full flat rate</p>
-                      <p className="text-xs text-stone-400 mt-1 leading-relaxed">
-                        No menu price changes at all. Roxberry simply pays 3.5% as a flat processing fee. This is the most straightforward option and still includes everything at zero equipment cost; the tradeoff is that 3.5% is your full effective rate rather than splitting it. Best for operators who want to avoid any menu adjustments entirely.
-                      </p>
+                      <p className="text-sm font-medium text-stone-700">Flat rate (no menu changes)</p>
+                      <ul className="mt-1.5 space-y-1 text-xs text-stone-400">
+                        <li>&bull; No menu price adjustments</li>
+                        <li>&bull; Effective processing fee: <span className="font-semibold text-stone-600">3.5%</span></li>
+                        <li>&bull; Still qualifies for free POS</li>
+                        <li>&bull; Best if cash discounting feels like too much change right now</li>
+                      </ul>
                     </div>
                   </button>
                 </div>
@@ -338,7 +345,7 @@ export default function Proposal() {
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto space-y-6 animate-fade-in stagger-3">
+        <div className="max-w-2xl mx-auto animate-fade-in stagger-3">
           <div className="flex items-start gap-4 bg-white rounded-2xl border border-stone-200 p-6">
             <div className="w-10 h-10 rounded-full bg-gp-50 flex items-center justify-center shrink-0">
               <svg className="w-5 h-5 text-gp-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -347,8 +354,8 @@ export default function Proposal() {
             </div>
             <div>
               <p className="text-sm font-medium text-stone-700">$1,000 Referral Bonus</p>
-              <p className="text-xs text-stone-400 mt-1 leading-relaxed">
-                As we grow into this vertical, any business you refer to us earns Roxberry a $1,000 bonus per referral. We see this partnership as the beginning of something broader, and that referral structure is our way of making sure it&rsquo;s mutually valuable as we scale.
+              <p className="text-xs text-stone-400 mt-1">
+                Per business referred as we grow in this market. Both options qualify.
               </p>
             </div>
           </div>
@@ -371,12 +378,12 @@ export default function Proposal() {
             </p>
             {plan === 'free-pos' && (
               <p className="text-sm text-stone-500 mb-6">
-                Fee structure: <span className="font-medium text-stone-700">{cdLabel}</span>
+                Structure: <span className="font-medium text-stone-700">{cdLabel}</span>
               </p>
             )}
             {plan === 'cost-plus' && <div className="mb-6" />}
             <p className="text-xs text-stone-400 mb-6">
-              This registers your preferred option with our team. Nothing is binding at this stage; your Global Payments rep will follow up to walk through the details and next steps.
+              Not binding. Registers your preference so your rep can prepare next steps.
             </p>
             <div className="flex gap-3">
               <button
@@ -389,7 +396,7 @@ export default function Proposal() {
                 onClick={handleConfirm}
                 className="flex-1 py-2.5 px-4 rounded-xl text-sm font-medium bg-gp-500 text-white hover:bg-gp-600 transition-colors"
               >
-                Confirm selection
+                Confirm
               </button>
             </div>
           </div>
