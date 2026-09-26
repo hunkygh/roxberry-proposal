@@ -5,8 +5,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
-  title: "Roxberry Juice Co. \u2014 Partnership Proposal",
-  description: "A custom partnership proposal from Heartland Payment Systems",
+  title: "Proposal - Roxberry Juice",
+  description: "A custom partnership proposal from Global Payments",
 }
 
 export default function RootLayout({
