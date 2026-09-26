@@ -1,2 +1,5 @@
-# roxberry-proposal
-Partnership proposal for Roxberry Juice Co. — Heartland Payment Systems
+# Roxberry Proposal
+
+Partnership proposal site for Roxberry Juice Co.
+
+Live: [roxberry-proposal.vercel.app](https://roxberry-proposal.vercel.app)
